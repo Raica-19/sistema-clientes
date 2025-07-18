@@ -1,0 +1,77 @@
+mport tkinter as tk
+from tkinter import messagebox
+
+class TelaSignUp:
+    def __init__(self, master):
+        self.master = master
+        master.title("Cadastro - Sign Up") 
+        master.geometry("350x400")
+        master.resizable(False, False)
+
+        # Nome
+        tk.Label(master, text="Nome:").pack(pady=3)
+        self.entry_nome = tk.Entry(master)
+        self.entry_nome.pack(pady=3)
+
+        # CPF
+        tk.Label(master, text="CPF:").pack(pady=3)
+        self.entry_cpf = tk.Entry(master)
+        self.entry_cpf.pack(pady=3)
+
+        # Email
+        tk.Label(master, text="Email:").pack(pady=3)
+        self.entry_email = tk.Entry(master)
+        self.entry_email.pack(pady=3)
+
+        # Telefone
+        tk.Label(master, text="Telefone:").pack(pady=3)
+        self.entry_telefone = tk.Entry(master)
+        self.entry_telefone.pack(pady=3)
+
+        # Senha
+        tk.Label(master, text="Senha:").pack(pady=3)
+        self.entry_senha = tk.Entry(master, show="*")
+        self.entry_senha.pack(pady=3)
+
+        # Confirmação de senha
+        tk.Label(master, text="Confirmar Senha:").pack(pady=3)
+        self.entry_confirma_senha = tk.Entry(master, show="*")
+        self.entry_confirma_senha.pack(pady=3)
+
+        # Botão Acessar (Salvar/Cadastrar)
+        self.botao_acessar = tk.Button(master, text="Cadastrar", command=self.cadastrar)
+        self.botao_acessar.pack(pady=15)
+
+    def cadastrar(self):
+        nome = self.entry_nome.get()
+        cpf = self.entry_cpf.get()
+        email = self.entry_email.get()
+        telefone = self.entry_telefone.get()
+        senha = self.entry_senha.get()
+        confirma_senha = self.entry_confirma_senha.get()
+
+        # Validações básicas
+        if not (nome and cpf and email and telefone and senha and confirma_senha):
+            messagebox.showwarning("Erro", "Preencha todos os campos.")
+            return
+        if senha != confirma_senha:
+            messagebox.showerror("Erro", "As senhas não coincidem.")
+            return
+        
+        # Aqui você pode adicionar salvar os dados em lista/arquivo/db
+        messagebox.showinfo("Sucesso", f"Usuário {nome} cadastrado com sucesso!")
+        self.limpar_campos()
+
+    def limpar_campos(self):
+        self.entry_nome.delete(0, tk.END)
+        self.entry_cpf.delete(0, tk.END)
+        self.entry_email.delete(0, tk.END)
+        self.entry_telefone.delete(0, tk.END)
+        self.entry_senha.delete(0, tk.END)
+        self.entry_confirma_senha.delete(0, tk.END)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = TelaSignUp(root)
+    root.mainloop()
+      
